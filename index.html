@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangpho Bangpost - Workshop ฟรี 16 กิจกรรมสร้างสรรค์</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Kanit', 'Prompt', sans-serif;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(99, 102, 241, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes slide-in {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background-size: 400% 400%;
+            animation: gradient-shift 10s ease infinite;
+        }
+        
+        .workshop-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .workshop-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .dark {
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        
+        .dark .dark-bg {
+            background-color: #1e293b;
+        }
+        
+        .dark .dark-text {
+            color: #cbd5e1;
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in {
+            animation: slide-in 0.5s ease-out;
+        }
+        
+        .counter {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #6366f1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 transition-colors duration-300">
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="fixed top-4 right-4 z-50 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
+        <svg id="sunIcon" class="w-6 h-6 text-gray-800 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <svg id="moonIcon" class="w-6 h-6 text-gray-200 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+    </button>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <div class="container mx-auto px-4 z-10 text-center">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 floating">
+                Bangpho Bangpost
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">
+                Workshop ฟรี กับ 16 กิจกรรมสร้างสรรค์
+            </p>
+            <div class="bg-white/20 backdrop-blur-md rounded-2xl p-6 md:p-8 max-w-2xl mx-auto">
+                <p class="text-lg md:text-xl mb-4">📅 วันเสาร์ที่ 2 สิงหาคม 2568</p>
+                <p class="text-lg md:text-xl mb-4">📍 ถนนสายไม้บางโพ</p>
+                <p class="text-lg md:text-xl mb-6">⏰ 08:30 - 18:30 น.</p>
+                <a href="https://shorturl.at/EsPud" target="_blank" class="inline-block bg-white text-purple-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-purple-100 transition-all duration-300 pulse-glow">
+                    ลงทะเบียนฟรี
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Event Info Section -->
+    <section class="py-16 dark-bg transition-colors duration-300">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 dark-text scroll-reveal">
+                รายละเอียดกิจกรรม
+            </h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 scroll-reveal">
+                    <h3 class="text-2xl font-semibold mb-6 text-purple-600 dark:text-purple-400">
+                        1-Day Trip - Bangpho Creative Legacy's Tourism 2025
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <span class="text-purple-600 dark:text-purple-400 mr-3">🎯</span>
+                            <p class="dark-text">โครงการย่านสร้างสรรค์ เขตบางซื่อ ปี 2568</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-purple-600 dark:text-purple-400 mr-3">🤝</span>
+                            <p class="dark-text">จัดโดย ประชาคมประชานฤมิตร ร่วมกับสำนักงานเขตบางซื่อ</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-purple-600 dark:text-purple-400 mr-3">🎨</span>
+                            <p class="dark-text">สำหรับผู้ที่รักงานสร้างสรรค์และงานไม้</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-16 bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 dark-text scroll-reveal">
+                กำหนดการ
+            </h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="timeline-item scroll-reveal">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-l-4 border-purple-600">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-lg dark-text">ลงทะเบียน</h4>
+                            <span class="text-purple-600 dark:text-purple-400 font-medium">08:30-09:00</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400">ลานจอดรถวิเศษไก่ย่างภัตตาคาร (ติดสถานีรถไฟฟ้าบางโพ)</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-reveal">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-l-4 border-purple-600">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-lg dark-text">พิธีเปิด</h4>
+                            <span class="text-purple-600 dark:text-purple-400 font-medium">09:19-09:30</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400">กล่าวเปิดงานโดย ผู้อำนวยการเขตบางซื่อ</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-reveal">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-l-4 border-purple-600">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-lg dark-text">เยี่ยมชมโรงเลื่อย</h4>
+                            <span class="text-purple-600 dark:text-purple-400 font-medium">09:30-10:30</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400">หจก.โรงเลื่อยจักรไท้เชียง - ฟังบรรยายและสาธิตการผ่าซุงไม้สัก</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-reveal">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-l-4 border-purple-600">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-lg dark-text">บรรยายพิเศษ</h4>
+                            <span class="text-purple-600 dark:text-purple-400 font-medium">10:30-11:30</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400">การออกแบบซุ้มประตู โดยอาจารย์สุดสาคร ชายเสม ศิลปินแห่งชาติ</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-reveal">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-l-4 border-purple-600">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-lg dark-text">อาหารกลางวัน</h4>
+                            <span class="text-purple-600 dark:text-purple-400 font-medium">12:00-13:00</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400">ศาลเจ้าแม่ทับทิมประชานฤมิตร + Workshop ทำพวงกุญแจรูปดาว</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-reveal">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-l-4 border-purple-600">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-lg dark-text">Workshops หลัก</h4>
+                            <span class="text-purple-600 dark:text-purple-400 font-medium">13:00-15:00</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400">16 กิจกรรมให้เลือกตามความสนใจ</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-reveal">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-l-4 border-purple-600">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-lg dark-text">เยี่ยมชมร้านค้า</h4>
+                            <span class="text-purple-600 dark:text-purple-400 font-medium">15:00-16:00</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400">รับตราประทับเพื่อลุ้นรางวัล</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-reveal">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-l-4 border-purple-600">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-lg dark-text">ปิดงาน</h4>
+                            <span class="text-purple-600 dark:text-purple-400 font-medium">16:30-18:30</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400">การแสดงดนตรี อาหารว่าง และจับรางวัล ที่ บริษัท ส.สามัคคีคอร์ปอร์เรทท์ จำกัด</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workshops Section -->
+    <section class="py-16 dark-bg transition-colors duration-300">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 dark-text scroll-reveal">
+                16 Workshop สุดสร้างสรรค์
+            </h2>
+            <p class="text-center text-gray-600 dark:text-gray-400 mb-12 scroll-reveal">
+                เลือกเข้าร่วมได้ตามความสนใจ (จำนวนจำกัด)
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Workshop Cards -->
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🌸</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">แจกันดอกไม้จากเศษไม้พื้น</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">บริษัท ทวีกิจผลิตภัณฑ์ไม้</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 15 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🍱</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">โต๊ะญี่ปุ่นจากแผ่น Laminate</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">หจก. น่ำเซ้งล้งค้าไม้</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🧺</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">ตะกร้าไม้ใส่ของ</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">บริษัท ชัยเจริญฮาร์ดแวร์ 88 จำกัด</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🖼️</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">ที่วางรูปจากเศษไม้สัก</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">บ้านอินคำ</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 10 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">ย้อมสีแผ่นไม้จากการผ่าเดือย</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">บริษัท สิริวโร จำกัด</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 15 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">📦</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">ลังไม้สนและเทคนิคการทำสี</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">บริษัท ส่วนการช่าง จำกัด</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 15 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🍇</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">ตะกร้าไม้ระแนงใส่ผลไม้</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">หจก. เข่งหน่ำฮวดค้าไม้</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🏺</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">ของตกแต่งไม้สัก</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">บ้านไม้ (Venawood)</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🧳</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">ท็อปไม้กล่องปิคนิค</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">บริษัท เอส.ยู. คลาสสิค จำกัด</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🔧</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">ชิ้นงานไม้โดยเครื่องมือ Festool</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Hafele Design Studio Bangpho</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🍷</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">ถาดวางแก้วจากเศษไม้ปูพื้น</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">บริษัท วิวัฒน์ชัยค้าไม้ จำกัด</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🖌️</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">เพ้นท์สีบนไม้อัดลายไม้</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Income Creative Corner</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 10 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🎪</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">สร้าง Art Toys จากไม้กลึง</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">ณรงค์การช่าง (บ้านสายไม้ บางโพ)</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🪑</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">ทำเบาะรองนั่ง</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">ไอเดียสตีลเฟอร์นิเจอร์</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">🌿</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">จัดดอกไม้ในกระถางจิ๋วเพ้นท์สี</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Green Terra Station</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
+                </div>
+
+                <div class="workshop-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 scroll-reveal">
+                    <div class="text-4xl mb-4">💧</div>
+                    <h3 class="font-semibold text-lg mb-2 dark-text">Aroma Wood Drop</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">POLL.Projects</p>
+                    <p class="text-sm font-medium text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-purple-600 dark:bg-purple-800 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8">พร้อมร่วมสร้างสรรค์กับเราหรือยัง?</h2>
+            <p class="text-xl mb-8">ลงทะเบียนฟรี! จำนวนจำกัด</p>
+            <a href="https://shorturl.at/EsPud" target="_blank" class="inline-block bg-white text-purple-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                ลงทะเบียนเลย
+            </a>
+            <div class="mt-8">
+                <img src="https://lh5.googleusercontent.com/d/1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC" alt="Bangpho Bangpost Event" class="max-w-full h-auto rounded-lg shadow-xl mx-auto" style="max-width: 600px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-gray-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold mb-4">สาวบางโพนั้นโก้จริง ๆ</h3>
+                <p class="text-gray-400">แล้วพบกันที่ถนนสายไม้บางโพ นะคะ</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-2 text-sm">
+                <span class="px-2">#BangphoBangpost</span>
+                <span class="px-2">#บางโพบางโพสต์</span>
+                <span class="px-2">#สาวบางโพ</span>
+                <span class="px-2">#ย่านสร้างสรรค์</span>
+                <span class="px-2">#KMUTNB</span>
+                <span class="px-2">#ARCHD_KMUTNB</span>
+                <span class="px-2">#Bangphowoodstreet</span>
+                <span class="px-2">#ถนนสายไม้บางโพ</span>
+                <span class="px-2">#ประชาคมประชานฤมิตร</span>
+                <span class="px-2">#เขตบางซื่อ</span>
+                <span class="px-2">#BKKDW2025</span>
+                <span class="px-2">#BangkokDesignWeek</span>
+                <span class="px-2">#DesignUpRising</span>
+                <span class="px-2">#BangphoCreativeCommons</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+        
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+
+        // Check saved preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            html.classList.add('dark');
+        }
+
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter Animation
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start);
+                }
+            }, 16);
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.gradient-bg');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
