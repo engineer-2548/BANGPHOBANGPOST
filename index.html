@@ -3,23 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bangpho Bangpost - Workshop ฟรี 16 กิจกรรมสร้างสรรค์ วันเสาร์ที่ 2 สิงหาคม 2568 ที่ถนนสายไม้บางโพ">
+    <meta name="keywords" content="Bangpho, บางโพ, Workshop, กิจกรรมสร้างสรรค์, ถนนสายไม้บางโพ">
+    <meta property="og:title" content="Bangpho Bangpost - Workshop ฟรี 16 กิจกรรม">
+    <meta property="og:description" content="ร่วมสร้างสรรค์งานไม้กับ 16 กิจกรรม Workshop ฟรี">
+    <meta property="og:image" content="https://lh5.googleusercontent.com/d/1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC">
     <title>Bangpho Bangpost - Workshop ฟรี 16 กิจกรรมสร้างสรรค์</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#8b5cf6">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQmFuZ3BobyBCYW5ncG9zdCIsInNob3J0X25hbWUiOiJCYW5ncGhvIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiM4YjVjZjYifQ==">
+    
+    <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700;900&family=Prompt:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "Bangpho Bangpost - Workshop ฟรี 16 กิจกรรม",
+        "startDate": "2025-08-02T08:30:00+07:00",
+        "endDate": "2025-08-02T18:30:00+07:00",
+        "location": {
+            "@type": "Place",
+            "name": "ถนนสายไม้บางโพ",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "บางซื่อ",
+                "addressRegion": "กรุงเทพมหานคร",
+                "addressCountry": "TH"
+            }
+        },
+        "description": "Workshop ฟรี 16 กิจกรรมสร้างสรรค์งานไม้",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "THB",
+            "url": "https://shorturl.at/EsPud"
+        },
+        "organizer": {
+            "@type": "Organization",
+            "name": "ประชาคมประชานฤมิตร"
+        }
+    }
+    </script>
+    
     <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
         * {
             font-family: 'Kanit', 'Prompt', sans-serif;
+            scroll-behavior: smooth;
         }
         
         body {
-            transition: background-color 0.5s ease, color 0.5s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
         }
         
         body.dark {
-            background-color: #0f172a;
-            color: #e2e8f0;
+            background-color: var(--dark);
+            color: var(--light);
+        }
+        
+        /* WebGL Canvas Background */
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
         }
         
         /* Particle Background */
@@ -30,24 +103,36 @@
             top: 0;
             left: 0;
             z-index: -1;
-            opacity: 0.3;
+            opacity: 0.5;
         }
         
-        /* Neon Glow Effects */
-        .neon-text {
-            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
         }
         
-        .neon-purple {
-            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #8b5cf6, 0 0 40px #8b5cf6, 0 0 50px #8b5cf6, 0 0 60px #8b5cf6, 0 0 70px #8b5cf6;
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
         }
         
         /* Glassmorphism */
         .glass {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         }
         
         .dark .glass {
@@ -55,106 +140,161 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* Advanced Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            25% { transform: translateY(-20px) rotate(1deg); }
-            75% { transform: translateY(5px) rotate(-1deg); }
+        /* Neon Effects */
+        .neon-text {
+            text-shadow: 0 0 10px currentColor,
+                         0 0 20px currentColor,
+                         0 0 30px currentColor,
+                         0 0 40px var(--primary),
+                         0 0 70px var(--primary),
+                         0 0 80px var(--primary),
+                         0 0 100px var(--primary);
         }
         
-        @keyframes pulse-neon {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
+        .neon-border {
+            box-shadow: 0 0 5px var(--primary),
+                        0 0 10px var(--primary),
+                        0 0 15px var(--primary),
+                        0 0 20px var(--primary),
+                        inset 0 0 5px var(--primary);
         }
         
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
+        /* Gradient Animations */
+        @keyframes gradient-x {
+            0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
         
-        @keyframes slide-in-right {
-            from { transform: translateX(100px) rotateY(30deg); opacity: 0; }
-            to { transform: translateX(0) rotateY(0); opacity: 1; }
+        @keyframes gradient-y {
+            0%, 100% { background-position: 50% 0%; }
+            50% { background-position: 50% 100%; }
         }
         
-        @keyframes bounce-in {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes gradient-xy {
+            0%, 100% { background-position: 0% 0%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
         }
         
-        @keyframes rotate-3d {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
+        .gradient-animate-x {
+            background-size: 200% 200%;
+            animation: gradient-x 15s ease infinite;
         }
         
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
+        .gradient-animate-y {
+            background-size: 200% 200%;
+            animation: gradient-y 10s ease infinite;
         }
         
-        @keyframes glitch {
-            0%, 100% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-        }
-        
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .pulse-neon {
-            animation: pulse-neon 2s ease-in-out infinite;
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        .gradient-animate-xy {
             background-size: 400% 400%;
-            animation: gradient-shift 15s ease infinite;
+            animation: gradient-xy 20s ease infinite;
         }
         
-        .bounce-in {
-            animation: bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        /* Holographic Effect */
+        .holographic {
+            background: linear-gradient(45deg, 
+                #ff0080, #ff8c00, #40e0d0, #ff0080, 
+                #ff8c00, #40e0d0, #ff0080);
+            background-size: 300% 300%;
+            animation: gradient-xy 3s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        .shimmer {
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
-            background-size: 1000px 100%;
-            animation: shimmer 2s infinite;
+        /* Glitch Effect */
+        @keyframes glitch {
+            0%, 100% { 
+                text-shadow: 2px 0 #ff0080, -2px 0 #00ff00;
+                transform: translate(0);
+            }
+            20% { 
+                text-shadow: 2px 0 #00ff00, -2px 0 #ff0080;
+                transform: translate(-2px, 2px);
+            }
+            40% { 
+                text-shadow: -2px 0 #ff0080, 2px 0 #00ff00;
+                transform: translate(-2px, -2px);
+            }
+            60% { 
+                text-shadow: 2px 0 #00ff00, -2px 0 #ff0080;
+                transform: translate(2px, 2px);
+            }
+            80% { 
+                text-shadow: -2px 0 #ff0080, 2px 0 #00ff00;
+                transform: translate(2px, -2px);
+            }
         }
         
-        /* 3D Card Effect */
-        .card-3d {
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
+        .glitch:hover {
+            animation: glitch 0.3s infinite;
         }
         
-        .card-3d:hover {
-            transform: rotateY(10deg) rotateX(10deg) scale(1.05);
+        /* Morphing Blob */
+        @keyframes morph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+            75% { border-radius: 60% 30% 60% 40% / 70% 50% 40% 60%; }
         }
         
-        /* Hover Effects */
-        .hover-lift {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .blob {
+            animation: morph 8s ease-in-out infinite;
+            filter: blur(40px);
         }
         
-        .hover-lift:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 20px rgba(139, 92, 246, 0.5);
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
         }
         
-        /* Glow Button */
-        .glow-button {
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+        }
+        
+        /* Magnetic Button */
+        .magnetic-btn {
             position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
+            transition: transform 0.2s;
         }
         
-        .glow-button::before {
+        /* 3D Text */
+        .text-3d {
+            text-shadow: 
+                1px 1px 0 #ccc,
+                2px 2px 0 #c9c9c9,
+                3px 3px 0 #bbb,
+                4px 4px 0 #b9b9b9,
+                5px 5px 0 #aaa,
+                6px 6px 5px rgba(0,0,0,.1),
+                6px 6px 10px rgba(0,0,0,.2),
+                6px 6px 15px rgba(0,0,0,.3),
+                6px 6px 20px rgba(0,0,0,.4);
+        }
+        
+        /* Liquid Button */
+        .liquid-btn {
+            position: relative;
+            padding: 20px 40px;
+            display: inline-block;
+            text-decoration: none;
+            overflow: hidden;
+            border-radius: 50px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+        
+        .liquid-btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -165,646 +305,1172 @@
             transition: left 0.5s;
         }
         
-        .glow-button:hover::before {
+        .liquid-btn:hover::before {
             left: 100%;
         }
         
-        .glow-button:hover {
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(139, 92, 246, 0.5);
+        /* SVG Filters */
+        .goo-filter {
+            filter: url(#goo);
         }
         
-        /* Loading Animation */
-        .loading-dots span {
-            animation: loading 1.4s infinite ease-in-out both;
-        }
-        
-        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
-        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
-        
-        @keyframes loading {
-            0%, 80%, 100% { transform: scale(0); opacity: 0; }
-            40% { transform: scale(1); opacity: 1; }
-        }
-        
-        /* Custom Cursor */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #8b5cf6;
-            border-radius: 50%;
+        /* Mouse Trail */
+        .mouse-trail {
             position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
-            transition: all 0.1s ease;
-            transform: translate(-50%, -50%);
+            opacity: 0.8;
+            transition: transform 0.2s, opacity 0.2s;
         }
         
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            background: rgba(139, 92, 246, 0.1);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.3s ease;
-            transform: translate(-50%, -50%);
+        /* Perspective Card */
+        .perspective-container {
+            perspective: 1000px;
         }
         
-        /* Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px) scale(0.9);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        
-        /* Tilt Effect */
-        .tilt {
+        .perspective-card {
             transform-style: preserve-3d;
-            transform: perspective(1000px);
+            transition: transform 0.6s;
         }
         
-        /* Magic Underline */
-        .magic-underline {
-            position: relative;
-            display: inline-block;
+        .perspective-card:hover {
+            transform: rotateY(180deg);
         }
         
-        .magic-underline::after {
-            content: '';
+        .card-face {
             position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
-            transition: width 0.3s ease;
-        }
-        
-        .magic-underline:hover::after {
             width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
         }
         
-        /* Blob Animation */
-        .blob {
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        
+        /* Shimmer Effect */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        .shimmer {
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255,255,255,0.4) 50%, 
+                transparent 100%);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+        
+        /* Sound Wave Animation */
+        @keyframes soundwave {
+            0%, 100% { height: 5px; }
+            50% { height: 40px; }
+        }
+        
+        .soundwave {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+        
+        .soundwave span {
+            display: inline-block;
+            width: 3px;
+            height: 20px;
+            background: var(--primary);
+            animation: soundwave 1s ease-in-out infinite;
+        }
+        
+        .soundwave span:nth-child(2) { animation-delay: 0.1s; }
+        .soundwave span:nth-child(3) { animation-delay: 0.2s; }
+        .soundwave span:nth-child(4) { animation-delay: 0.3s; }
+        .soundwave span:nth-child(5) { animation-delay: 0.4s; }
+        
+        /* Matrix Rain Effect */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        /* Ripple Effect */
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        .ripple {
             position: absolute;
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(180deg, rgba(139, 92, 246, 0.4) 0%, rgba(236, 72, 153, 0.4) 100%);
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            filter: blur(40px);
-            animation: blob 20s infinite;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
         }
         
-        @keyframes blob {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(20px, -50px) scale(1.1); }
-            50% { transform: translate(-20px, 20px) scale(0.9); }
-            75% { transform: translate(50px, 50px) scale(1.05); }
+        /* Floating Elements */
+        @keyframes float-up {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .floating-element {
+            position: fixed;
+            animation: float-up 10s linear infinite;
+            pointer-events: none;
+            z-index: -1;
         }
     </style>
 </head>
-<body class="bg-gray-50 transition-all duration-500">
-    <!-- Custom Cursor -->
-    <div class="cursor hidden lg:block"></div>
-    <div class="cursor-follower hidden lg:block"></div>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="text-center">
+            <div class="soundwave mb-4">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <h2 class="text-2xl text-white font-bold">กำลังโหลด...</h2>
+        </div>
+    </div>
     
-    <!-- Particle Background -->
+    <!-- WebGL Background -->
+    <canvas id="webgl-canvas"></canvas>
+    
+    <!-- Particles Background -->
     <div id="particles-js"></div>
     
-    <!-- Animated Blobs -->
-    <div class="blob fixed top-20 -left-20 opacity-50"></div>
-    <div class="blob fixed bottom-20 -right-20 opacity-50" style="animation-delay: 10s;"></div>
+    <!-- Matrix Rain Effect -->
+    <canvas class="matrix-rain" id="matrix"></canvas>
     
-    <!-- Dark Mode Toggle -->
-    <button id="darkModeToggle" class="fixed top-4 right-4 z-50 p-3 rounded-full glass shadow-xl hover:shadow-2xl transition-all duration-300 hover-lift">
-        <svg id="sunIcon" class="w-6 h-6 text-gray-800 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-        </svg>
-        <svg id="moonIcon" class="w-6 h-6 text-gray-200 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-        </svg>
-    </button>
-
-    <!-- Hero Section -->
-    <section class="gradient-bg text-white min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div class="absolute inset-0 bg-black opacity-20"></div>
-        
-        <!-- Animated Background Elements -->
-        <div class="absolute top-20 left-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-        <div class="absolute top-40 right-20 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div class="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
-        
-        <div class="container mx-auto px-4 z-10 text-center">
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 floating neon-purple">
-                Bangpho Bangpost
-            </h1>
-            <p class="text-xl md:text-3xl mb-8 opacity-90 bounce-in">
-                Workshop ฟรี กับ 16 กิจกรรมสร้างสรรค์
-            </p>
-            <div class="glass rounded-3xl p-8 md:p-10 max-w-2xl mx-auto transform hover:scale-105 transition-all duration-300">
-                <p class="text-lg md:text-xl mb-4 slide-in-right">📅 วันเสาร์ที่ 2 สิงหาคม 2568</p>
-                <p class="text-lg md:text-xl mb-4 slide-in-right" style="animation-delay: 0.2s;">📍 ถนนสายไม้บางโพ</p>
-                <p class="text-lg md:text-xl mb-6 slide-in-right" style="animation-delay: 0.4s;">⏰ 08:30 - 18:30 น.</p>
-                <a href="https://shorturl.at/EsPud" target="_blank" class="inline-block bg-white text-purple-600 px-10 py-5 rounded-full font-bold text-lg hover:bg-purple-100 transition-all duration-300 glow-button transform hover:scale-110">
-                    <span class="relative z-10">ลงทะเบียนฟรี</span>
-                </a>
+    <!-- Floating Elements -->
+    <div id="floating-container"></div>
+    
+    <!-- SVG Filters -->
+    <svg style="position: absolute; width: 0; height: 0;">
+        <defs>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+            </filter>
+        </defs>
+    </svg>
+    
+    <!-- Mouse Trail Container -->
+    <div id="mouseTrailContainer"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass px-6 py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold holographic">Bangpho</div>
+            <div class="flex items-center gap-4">
+                <button id="soundToggle" class="p-2 rounded-full glass hover:neon-border transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                    </svg>
+                </button>
+                <button id="darkModeToggle" class="p-2 rounded-full glass hover:neon-border transition-all">
+                    <svg id="sunIcon" class="w-6 h-6 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <svg id="moonIcon" class="w-6 h-6 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
             </div>
         </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-500 gradient-animate-xy opacity-80"></div>
         
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-        </div>
-    </section>
-
-    <!-- Event Info Section -->
-    <section class="py-20 relative">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 reveal magic-underline">
-                รายละเอียดกิจกรรม
-            </h2>
-            <div class="max-w-4xl mx-auto">
-                <div class="glass rounded-3xl shadow-2xl p-10 reveal card-3d">
-                    <h3 class="text-3xl font-bold mb-8 text-purple-600 dark:text-purple-400 neon-purple">
-                        1-Day Trip - Bangpho Creative Legacy's Tourism 2025
-                    </h3>
-                    <div class="space-y-6">
-                        <div class="flex items-start group">
-                            <span class="text-purple-600 dark:text-purple-400 mr-4 text-2xl group-hover:scale-125 transition-transform">🎯</span>
-                            <p class="text-lg group-hover:translate-x-2 transition-transform">โครงการย่านสร้างสรรค์ เขตบางซื่อ ปี 2568</p>
-                        </div>
-                        <div class="flex items-start group">
-                            <span class="text-purple-600 dark:text-purple-400 mr-4 text-2xl group-hover:scale-125 transition-transform">🤝</span>
-                            <p class="text-lg group-hover:translate-x-2 transition-transform">จัดโดย ประชาคมประชานฤมิตร ร่วมกับสำนักงานเขตบางซื่อ</p>
-                        </div>
-                        <div class="flex items-start group">
-                            <span class="text-purple-600 dark:text-purple-400 mr-4 text-2xl group-hover:scale-125 transition-transform">🎨</span>
-                            <p class="text-lg group-hover:translate-x-2 transition-transform">สำหรับผู้ที่รักงานสร้างสรรค์และงานไม้</p>
-                        </div>
+        <!-- Morphing Blobs -->
+        <div class="absolute top-20 left-20 w-96 h-96 bg-purple-400 blob opacity-30"></div>
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-pink-400 blob opacity-30" style="animation-delay: 4s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-400 blob opacity-30" style="animation-delay: 8s;"></div>
+        
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-black mb-6 text-white">
+                <span class="inline-block transform hover:scale-110 transition-transform text-3d">Bangpho</span><br>
+                <span class="inline-block transform hover:scale-110 transition-transform text-3d glitch">Bangpost</span>
+            </h1>
+            <div class="text-2xl md:text-3xl mb-8 text-white">
+                <span id="typedText"></span>
+            </div>
+            
+            <div class="glass rounded-3xl p-8 md:p-12 max-w-3xl mx-auto transform hover:scale-105 transition-all">
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="transform hover:scale-110 transition-transform">
+                        <div class="text-4xl mb-2">📅</div>
+                        <p class="text-lg font-semibold">2 สิงหาคม 2568</p>
+                    </div>
+                    <div class="transform hover:scale-110 transition-transform">
+                        <div class="text-4xl mb-2">📍</div>
+                        <p class="text-lg font-semibold">ถนนสายไม้บางโพ</p>
+                    </div>
+                    <div class="transform hover:scale-110 transition-transform">
+                        <div class="text-4xl mb-2">⏰</div>
+                        <p class="text-lg font-semibold">08:30 - 18:30 น.</p>
+                    </div>
+                </div>
+                
+                <a href="https://shorturl.at/EsPud" target="_blank" class="liquid-btn text-white font-bold text-xl magnetic-btn">
+                    ลงทะเบียนฟรี
+                </a>
+                
+                <div class="mt-8 flex justify-center gap-4">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-white neon-text" id="countdown-days">00</div>
+                        <div class="text-sm">วัน</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-white neon-text" id="countdown-hours">00</div>
+                        <div class="text-sm">ชั่วโมง</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-white neon-text" id="countdown-minutes">00</div>
+                        <div class="text-sm">นาที</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-white neon-text" id="countdown-seconds">00</div>
+                        <div class="text-sm">วินาที</div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+            <div class="animate-bounce">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </div>
     </section>
-
-    <!-- Timeline Section -->
-    <section class="py-20 bg-gray-100 dark:bg-gray-900 relative overflow-hidden">
+    
+    <!-- Event Image Section -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 holographic">ภาพบรรยากาศงาน</h2>
+                <div class="relative group">
+                    <!-- Main Image with multiple fallback options -->
+                    <div class="rounded-3xl overflow-hidden shadow-2xl">
+                        <!-- Try multiple methods to display the image -->
+                        <picture>
+                            <source srcset="https://lh5.googleusercontent.com/d/1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC" type="image/jpeg">
+                            <source srcset="https://drive.google.com/uc?id=1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC" type="image/jpeg">
+                            <img id="eventImage" 
+                                 src="https://lh5.googleusercontent.com/d/1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC" 
+                                 alt="Bangpho Bangpost Event"
+                                 class="w-full h-auto transform group-hover:scale-110 transition-transform duration-700"
+                                 loading="lazy"
+                                 decoding="async"
+                                 crossorigin="anonymous"
+                                 referrerpolicy="no-referrer"
+                                 onerror="handleImageError(this)">
+                        </picture>
+                        
+                        <!-- Overlay Effect -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-purple-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                    
+                    <!-- 3D Frame Effect -->
+                    <div class="absolute -inset-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl opacity-75 blur-lg group-hover:opacity-100 transition-opacity -z-10"></div>
+                </div>
+                
+                <!-- Alternative Display Methods -->
+                <div class="mt-8 space-y-4">
+                    <!-- Method 1: Direct Link -->
+                    <div class="text-center">
+                        <p class="text-gray-600 dark:text-gray-400 mb-2">ดูรูปภาพ:</p>
+                        <a href="https://lh5.googleusercontent.com/d/1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC" 
+                           target="_blank" 
+                           class="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                            เปิดรูปในแท็บใหม่
+                        </a>
+                    </div>
+                    
+                    <!-- Method 2: iFrame -->
+                    <div class="rounded-2xl overflow-hidden shadow-lg" style="display: none;" id="iframeContainer">
+                        <iframe src="https://drive.google.com/file/d/1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC/preview" 
+                                width="100%" 
+                                height="480"
+                                class="border-0"
+                                allow="autoplay">
+                        </iframe>
+                    </div>
+                    
+                    <!-- Method 3: Canvas Fallback -->
+                    <canvas id="imageCanvas" class="w-full rounded-2xl shadow-lg" style="display: none;"></canvas>
+                </div>
+                
+                <script>
+                    // Advanced image loading strategy
+                    function handleImageError(img) {
+                        console.log('Trying alternative image loading methods...');
+                        
+                        // Try alternative URLs
+                        const alternativeUrls = [
+                            'https://drive.google.com/uc?export=view&id=1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC',
+                            'https://drive.google.com/uc?id=1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC',
+                            'https://lh3.googleusercontent.com/d/1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC'
+                        ];
+                        
+                        let urlIndex = 0;
+                        
+                        function tryNextUrl() {
+                            if (urlIndex < alternativeUrls.length) {
+                                img.src = alternativeUrls[urlIndex];
+                                urlIndex++;
+                            } else {
+                                // Show iframe as fallback
+                                document.getElementById('iframeContainer').style.display = 'block';
+                                img.style.display = 'none';
+                                
+                                // Also create a canvas placeholder
+                                createCanvasPlaceholder();
+                            }
+                        }
+                        
+                        img.onerror = tryNextUrl;
+                        tryNextUrl();
+                    }
+                    
+                    function createCanvasPlaceholder() {
+                        const canvas = document.getElementById('imageCanvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        canvas.width = 800;
+                        canvas.height = 600;
+                        canvas.style.display = 'block';
+                        
+                        // Create gradient background
+                        const gradient = ctx.createLinearGradient(0, 0, 800, 600);
+                        gradient.addColorStop(0, '#667eea');
+                        gradient.addColorStop(1, '#764ba2');
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(0, 0, 800, 600);
+                        
+                        // Add text
+                        ctx.fillStyle = 'white';
+                        ctx.font = 'bold 48px Kanit';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText('Bangpho Bangpost', 400, 250);
+                        
+                        ctx.font = '32px Kanit';
+                        ctx.fillText('Workshop ฟรี 16 กิจกรรม', 400, 320);
+                        
+                        ctx.font = '24px Kanit';
+                        ctx.fillText('2 สิงหาคม 2568', 400, 380);
+                    }
+                    
+                    // Try to load image using Fetch API
+                    fetch('https://lh5.googleusercontent.com/d/1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC', {
+                        mode: 'cors',
+                        credentials: 'omit'
+                    })
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const img = document.getElementById('eventImage');
+                        img.src = url;
+                    })
+                    .catch(error => {
+                        console.log('Fetch failed:', error);
+                    });
+                </script>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Event Details with Lottie Animation -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                        <span class="holographic">1-Day Trip</span><br>
+                        <span class="text-2xl text-gray-600 dark:text-gray-400">Bangpho Creative Legacy's Tourism 2025</span>
+                    </h2>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold transform group-hover:rotate-180 transition-transform duration-500">1</div>
+                            <div>
+                                <h3 class="font-bold text-xl mb-2">โครงการย่านสร้างสรรค์</h3>
+                                <p class="text-gray-600 dark:text-gray-400">เขตบางซื่อ ปี 2568</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold transform group-hover:rotate-180 transition-transform duration-500">2</div>
+                            <div>
+                                <h3 class="font-bold text-xl mb-2">จัดโดย</h3>
+                                <p class="text-gray-600 dark:text-gray-400">ประชาคมประชานฤมิตร ร่วมกับสำนักงานเขตบางซื่อ</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold transform group-hover:rotate-180 transition-transform duration-500">3</div>
+                            <div>
+                                <h3 class="font-bold text-xl mb-2">เหมาะสำหรับ</h3>
+                                <p class="text-gray-600 dark:text-gray-400">ผู้ที่รักงานสร้างสรรค์และงานไม้</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div id="lottie-animation" class="w-full h-96"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Interactive Timeline -->
+    <section class="py-20 bg-gray-100 dark:bg-gray-800 relative overflow-hidden">
         <div class="absolute inset-0 shimmer"></div>
         <div class="container mx-auto px-4 relative z-10">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 reveal">
-                กำหนดการ
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+                <span class="holographic">กำหนดการ</span>
             </h2>
-            <div class="max-w-4xl mx-auto space-y-8">
-                <!-- Timeline items with stagger animation -->
-                <div class="timeline-item reveal" style="animation-delay: 0.1s;">
-                    <div class="glass rounded-2xl shadow-xl p-8 border-l-4 border-purple-600 hover-lift">
-                        <div class="flex justify-between items-start mb-3">
-                            <h4 class="font-bold text-xl">ลงทะเบียน</h4>
-                            <span class="text-purple-600 dark:text-purple-400 font-semibold text-lg">08:30-09:00</span>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="timeline-container relative">
+                    <!-- Timeline Line -->
+                    <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-600 to-pink-600"></div>
+                    
+                    <!-- Timeline Items -->
+                    <div class="timeline-item relative pl-20 pb-12">
+                        <div class="absolute left-4 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                            <div class="w-4 h-4 bg-white rounded-full"></div>
                         </div>
-                        <p class="text-gray-600 dark:text-gray-300">ลานจอดรถวิเศษไก่ย่างภัตตาคาร (ติดสถานีรถไฟฟ้าบางโพ)</p>
+                        <div class="glass rounded-2xl p-6 transform hover:scale-105 transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-xl">ลงทะเบียน</h3>
+                                <span class="text-purple-600 font-semibold">08:30-09:00</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300">ลานจอดรถวิเศษไก่ย่างภัตตาคาร (ติดสถานีรถไฟฟ้าบางโพ)</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="timeline-item reveal" style="animation-delay: 0.2s;">
-                    <div class="glass rounded-2xl shadow-xl p-8 border-l-4 border-purple-600 hover-lift">
-                        <div class="flex justify-between items-start mb-3">
-                            <h4 class="font-bold text-xl">พิธีเปิด</h4>
-                            <span class="text-purple-600 dark:text-purple-400 font-semibold text-lg">09:19-09:30</span>
+                    
+                    <div class="timeline-item relative pl-20 pb-12">
+                        <div class="absolute left-4 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                            <div class="w-4 h-4 bg-white rounded-full"></div>
                         </div>
-                        <p class="text-gray-600 dark:text-gray-300">กล่าวเปิดงานโดย ผู้อำนวยการเขตบางซื่อ</p>
+                        <div class="glass rounded-2xl p-6 transform hover:scale-105 transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-xl">พิธีเปิด</h3>
+                                <span class="text-purple-600 font-semibold">09:19-09:30</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300">กล่าวเปิดงานโดย ผู้อำนวยการเขตบางซื่อ</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="timeline-item reveal" style="animation-delay: 0.3s;">
-                    <div class="glass rounded-2xl shadow-xl p-8 border-l-4 border-purple-600 hover-lift">
-                        <div class="flex justify-between items-start mb-3">
-                            <h4 class="font-bold text-xl">เยี่ยมชมโรงเลื่อย</h4>
-                            <span class="text-purple-600 dark:text-purple-400 font-semibold text-lg">09:30-10:30</span>
+                    
+                    <div class="timeline-item relative pl-20 pb-12">
+                        <div class="absolute left-4 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                            <div class="w-4 h-4 bg-white rounded-full"></div>
                         </div>
-                        <p class="text-gray-600 dark:text-gray-300">หจก.โรงเลื่อยจักรไท้เชียง - ฟังบรรยายและสาธิตการผ่าซุงไม้สัก</p>
+                        <div class="glass rounded-2xl p-6 transform hover:scale-105 transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-xl">เยี่ยมชมโรงเลื่อย</h3>
+                                <span class="text-purple-600 font-semibold">09:30-10:30</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300">หจก.โรงเลื่อยจักรไท้เชียง - ฟังบรรยายและสาธิตการผ่าซุงไม้สัก</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="timeline-item reveal" style="animation-delay: 0.4s;">
-                    <div class="glass rounded-2xl shadow-xl p-8 border-l-4 border-purple-600 hover-lift">
-                        <div class="flex justify-between items-start mb-3">
-                            <h4 class="font-bold text-xl">บรรยายพิเศษ</h4>
-                            <span class="text-purple-600 dark:text-purple-400 font-semibold text-lg">10:30-11:30</span>
+                    
+                    <div class="timeline-item relative pl-20 pb-12">
+                        <div class="absolute left-4 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                            <div class="w-4 h-4 bg-white rounded-full"></div>
                         </div>
-                        <p class="text-gray-600 dark:text-gray-300">การออกแบบซุ้มประตู โดยอาจารย์สุดสาคร ชายเสม ศิลปินแห่งชาติ</p>
+                        <div class="glass rounded-2xl p-6 transform hover:scale-105 transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-xl">บรรยายพิเศษ</h3>
+                                <span class="text-purple-600 font-semibold">10:30-11:30</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300">การออกแบบซุ้มประตู โดยอาจารย์สุดสาคร ชายเสม ศิลปินแห่งชาติ</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="timeline-item reveal" style="animation-delay: 0.5s;">
-                    <div class="glass rounded-2xl shadow-xl p-8 border-l-4 border-purple-600 hover-lift">
-                        <div class="flex justify-between items-start mb-3">
-                            <h4 class="font-bold text-xl">อาหารกลางวัน</h4>
-                            <span class="text-purple-600 dark:text-purple-400 font-semibold text-lg">12:00-13:00</span>
+                    
+                    <div class="timeline-item relative pl-20 pb-12">
+                        <div class="absolute left-4 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                            <div class="w-4 h-4 bg-white rounded-full"></div>
                         </div>
-                        <p class="text-gray-600 dark:text-gray-300">ศาลเจ้าแม่ทับทิมประชานฤมิตร + Workshop ทำพวงกุญแจรูปดาว</p>
+                        <div class="glass rounded-2xl p-6 transform hover:scale-105 transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-xl">อาหารกลางวัน</h3>
+                                <span class="text-purple-600 font-semibold">12:00-13:00</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300">ศาลเจ้าแม่ทับทิมประชานฤมิตร + Workshop ทำพวงกุญแจรูปดาว</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="timeline-item reveal" style="animation-delay: 0.6s;">
-                    <div class="glass rounded-2xl shadow-xl p-8 border-l-4 border-purple-600 hover-lift">
-                        <div class="flex justify-between items-start mb-3">
-                            <h4 class="font-bold text-xl">Workshops หลัก</h4>
-                            <span class="text-purple-600 dark:text-purple-400 font-semibold text-lg">13:00-15:00</span>
+                    
+                    <div class="timeline-item relative pl-20 pb-12">
+                        <div class="absolute left-4 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                            <div class="w-4 h-4 bg-white rounded-full"></div>
                         </div>
-                        <p class="text-gray-600 dark:text-gray-300">16 กิจกรรมให้เลือกตามความสนใจ</p>
+                        <div class="glass rounded-2xl p-6 transform hover:scale-105 transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-xl">Workshops หลัก</h3>
+                                <span class="text-purple-600 font-semibold">13:00-15:00</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300">16 กิจกรรมให้เลือกตามความสนใจ</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="timeline-item reveal" style="animation-delay: 0.7s;">
-                    <div class="glass rounded-2xl shadow-xl p-8 border-l-4 border-purple-600 hover-lift">
-                        <div class="flex justify-between items-start mb-3">
-                            <h4 class="font-bold text-xl">เยี่ยมชมร้านค้า</h4>
-                            <span class="text-purple-600 dark:text-purple-400 font-semibold text-lg">15:00-16:00</span>
+                    
+                    <div class="timeline-item relative pl-20 pb-12">
+                        <div class="absolute left-4 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                            <div class="w-4 h-4 bg-white rounded-full"></div>
                         </div>
-                        <p class="text-gray-600 dark:text-gray-300">รับตราประทับเพื่อลุ้นรางวัล</p>
+                        <div class="glass rounded-2xl p-6 transform hover:scale-105 transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-xl">เยี่ยมชมร้านค้า</h3>
+                                <span class="text-purple-600 font-semibold">15:00-16:00</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300">รับตราประทับเพื่อลุ้นรางวัล</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="timeline-item reveal" style="animation-delay: 0.8s;">
-                    <div class="glass rounded-2xl shadow-xl p-8 border-l-4 border-purple-600 hover-lift">
-                        <div class="flex justify-between items-start mb-3">
-                            <h4 class="font-bold text-xl">ปิดงาน</h4>
-                            <span class="text-purple-600 dark:text-purple-400 font-semibold text-lg">16:30-18:30</span>
+                    
+                    <div class="timeline-item relative pl-20">
+                        <div class="absolute left-4 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                            <div class="w-4 h-4 bg-white rounded-full"></div>
                         </div>
-                        <p class="text-gray-600 dark:text-gray-300">การแสดงดนตรี อาหารว่าง และจับรางวัล ที่ บริษัท ส.สามัคคีคอร์ปอร์เรทท์ จำกัด</p>
+                        <div class="glass rounded-2xl p-6 transform hover:scale-105 transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-xl">ปิดงาน</h3>
+                                <span class="text-purple-600 font-semibold">16:30-18:30</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300">การแสดงดนตรี อาหารว่าง และจับรางวัล ที่ บริษัท ส.สามัคคีคอร์ปอร์เรทท์ จำกัด</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Workshops Section -->
+    
+    <!-- 3D Workshop Cards -->
     <section class="py-20 relative">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-6 reveal">
-                16 Workshop สุดสร้างสรรค์
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+                <span class="holographic">16 Workshop สุดสร้างสรรค์</span>
             </h2>
-            <p class="text-center text-gray-600 dark:text-gray-300 mb-16 text-xl reveal">
-                เลือกเข้าร่วมได้ตามความสนใจ (จำนวนจำกัด)
-            </p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Workshop Cards with enhanced effects -->
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt">
-                    <div class="text-5xl mb-6 floating">🌸</div>
-                    <h3 class="font-bold text-xl mb-3">แจกันดอกไม้จากเศษไม้พื้น</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">บริษัท ทวีกิจผลิตภัณฑ์ไม้</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 15 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 0.1s;">
-                    <div class="text-5xl mb-6 floating">🍱</div>
-                    <h3 class="font-bold text-xl mb-3">โต๊ะญี่ปุ่นจากแผ่น Laminate</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">หจก. น่ำเซ้งล้งค้าไม้</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 0.2s;">
-                    <div class="text-5xl mb-6 floating">🧺</div>
-                    <h3 class="font-bold text-xl mb-3">ตะกร้าไม้ใส่ของ</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">บริษัท ชัยเจริญฮาร์ดแวร์ 88 จำกัด</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 0.3s;">
-                    <div class="text-5xl mb-6 floating">🖼️</div>
-                    <h3 class="font-bold text-xl mb-3">ที่วางรูปจากเศษไม้สัก</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">บ้านอินคำ</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 10 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 0.4s;">
-                    <div class="text-5xl mb-6 floating">🎨</div>
-                    <h3 class="font-bold text-xl mb-3">ย้อมสีแผ่นไม้จากการผ่าเดือย</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">บริษัท สิริวโร จำกัด</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 15 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 0.5s;">
-                    <div class="text-5xl mb-6 floating">📦</div>
-                    <h3 class="font-bold text-xl mb-3">ลังไม้สนและเทคนิคการทำสี</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">บริษัท ส่วนการช่าง จำกัด</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 15 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 0.6s;">
-                    <div class="text-5xl mb-6 floating">🍇</div>
-                    <h3 class="font-bold text-xl mb-3">ตะกร้าไม้ระแนงใส่ผลไม้</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">หจก. เข่งหน่ำฮวดค้าไม้</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 0.7s;">
-                    <div class="text-5xl mb-6 floating">🏺</div>
-                    <h3 class="font-bold text-xl mb-3">ของตกแต่งไม้สัก</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">บ้านไม้ (Venawood)</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 0.8s;">
-                    <div class="text-5xl mb-6 floating">🧳</div>
-                    <h3 class="font-bold text-xl mb-3">ท็อปไม้กล่องปิคนิค</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">บริษัท เอส.ยู. คลาสสิค จำกัด</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 0.9s;">
-                    <div class="text-5xl mb-6 floating">🔧</div>
-                    <h3 class="font-bold text-xl mb-3">ชิ้นงานไม้โดยเครื่องมือ Festool</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Hafele Design Studio Bangpho</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 1.0s;">
-                    <div class="text-5xl mb-6 floating">🍷</div>
-                    <h3 class="font-bold text-xl mb-3">ถาดวางแก้วจากเศษไม้ปูพื้น</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">บริษัท วิวัฒน์ชัยค้าไม้ จำกัด</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 1.1s;">
-                    <div class="text-5xl mb-6 floating">🖌️</div>
-                    <h3 class="font-bold text-xl mb-3">เพ้นท์สีบนไม้อัดลายไม้</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Income Creative Corner</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 10 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 1.2s;">
-                    <div class="text-5xl mb-6 floating">🎪</div>
-                    <h3 class="font-bold text-xl mb-3">สร้าง Art Toys จากไม้กลึง</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">ณรงค์การช่าง (บ้านสายไม้ บางโพ)</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 1.3s;">
-                    <div class="text-5xl mb-6 floating">🪑</div>
-                    <h3 class="font-bold text-xl mb-3">ทำเบาะรองนั่ง</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">ไอเดียสตีลเฟอร์นิเจอร์</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 1.4s;">
-                    <div class="text-5xl mb-6 floating">🌿</div>
-                    <h3 class="font-bold text-xl mb-3">จัดดอกไม้ในกระถางจิ๋วเพ้นท์สี</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Green Terra Station</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
-                </div>
-
-                <div class="workshop-card glass rounded-2xl shadow-xl p-8 reveal hover-lift tilt" style="animation-delay: 1.5s;">
-                    <div class="text-5xl mb-6 floating">💧</div>
-                    <h3 class="font-bold text-xl mb-3">Aroma Wood Drop</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">POLL.Projects</p>
-                    <p class="text-sm font-bold text-purple-600 dark:text-purple-400">จำกัด 12 ท่าน</p>
-                </div>
+                <!-- Workshop data array for dynamic generation -->
+                <script>
+                    const workshops = [
+                        { icon: "🌸", title: "แจกันดอกไม้จากเศษไม้พื้น", company: "บริษัท ทวีกิจผลิตภัณฑ์ไม้", limit: 15 },
+                        { icon: "🍱", title: "โต๊ะญี่ปุ่นจากแผ่น Laminate", company: "หจก. น่ำเซ้งล้งค้าไม้", limit: 12 },
+                        { icon: "🧺", title: "ตะกร้าไม้ใส่ของ", company: "บริษัท ชัยเจริญฮาร์ดแวร์ 88 จำกัด", limit: 12 },
+                        { icon: "🖼️", title: "ที่วางรูปจากเศษไม้สัก", company: "บ้านอินคำ", limit: 10 },
+                        { icon: "🎨", title: "ย้อมสีแผ่นไม้จากการผ่าเดือย", company: "บริษัท สิริวโร จำกัด", limit: 15 },
+                        { icon: "📦", title: "ลังไม้สนและเทคนิคการทำสี", company: "บริษัท ส่วนการช่าง จำกัด", limit: 15 },
+                        { icon: "🍇", title: "ตะกร้าไม้ระแนงใส่ผลไม้", company: "หจก. เข่งหน่ำฮวดค้าไม้", limit: 12 },
+                        { icon: "🏺", title: "ของตกแต่งไม้สัก", company: "บ้านไม้ (Venawood)", limit: 12 },
+                        { icon: "🧳", title: "ท็อปไม้กล่องปิคนิค", company: "บริษัท เอส.ยู. คลาสสิค จำกัด", limit: 12 },
+                        { icon: "🔧", title: "ชิ้นงานไม้โดยเครื่องมือ Festool", company: "Hafele Design Studio Bangpho", limit: 12 },
+                        { icon: "🍷", title: "ถาดวางแก้วจากเศษไม้ปูพื้น", company: "บริษัท วิวัฒน์ชัยค้าไม้ จำกัด", limit: 12 },
+                        { icon: "🖌️", title: "เพ้นท์สีบนไม้อัดลายไม้", company: "Income Creative Corner", limit: 10 },
+                        { icon: "🎪", title: "สร้าง Art Toys จากไม้กลึง", company: "ณรงค์การช่าง (บ้านสายไม้ บางโพ)", limit: 12 },
+                        { icon: "🪑", title: "ทำเบาะรองนั่ง", company: "ไอเดียสตีลเฟอร์นิเจอร์", limit: 12 },
+                        { icon: "🌿", title: "จัดดอกไม้ในกระถางจิ๋วเพ้นท์สี", company: "Green Terra Station", limit: 12 },
+                        { icon: "💧", title: "Aroma Wood Drop", company: "POLL.Projects", limit: 12 }
+                    ];
+                </script>
+                
+                <!-- Workshop cards will be generated by JavaScript -->
+                <div id="workshopCards" class="contents"></div>
             </div>
         </div>
     </section>
-
-    <!-- CTA Section -->
-    <section class="py-20 gradient-bg text-white relative overflow-hidden">
-        <div class="absolute inset-0 bg-black opacity-20"></div>
-        <div class="container mx-auto px-4 text-center relative z-10">
-            <h2 class="text-4xl md:text-5xl font-bold mb-10 floating neon-text">
+    
+    <!-- Interactive CTA Section -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-500 gradient-animate-xy"></div>
+        <div class="container mx-auto px-4 relative z-10 text-center text-white">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 text-3d">
                 พร้อมร่วมสร้างสรรค์กับเราหรือยัง?
             </h2>
-            <p class="text-2xl mb-10">ลงทะเบียนฟรี! จำนวนจำกัด</p>
-            <a href="https://shorturl.at/EsPud" target="_blank" class="inline-block bg-white text-purple-600 px-12 py-6 rounded-full font-bold text-xl glow-button transform hover:scale-110 transition-all duration-300">
-                <span class="relative z-10">ลงทะเบียนเลย</span>
-            </a>
-            <div class="mt-12">
-                <img src="https://lh5.googleusercontent.com/d/1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC" alt="Bangpho Bangpost Event" class="max-w-full h-auto rounded-2xl shadow-2xl mx-auto hover-lift" style="max-width: 700px;">
+            <p class="text-2xl mb-12">ลงทะเบียนฟรี! จำนวนจำกัด</p>
+            
+            <div class="flex justify-center gap-6">
+                <a href="https://shorturl.at/EsPud" target="_blank" class="liquid-btn text-white font-bold text-xl transform hover:scale-110 transition-all">
+                    <span class="relative z-10">ลงทะเบียนเลย</span>
+                </a>
+                <button onclick="shareEvent()" class="liquid-btn text-white font-bold text-xl transform hover:scale-110 transition-all">
+                    <span class="relative z-10">แชร์กิจกรรม</span>
+                </button>
+            </div>
+            
+            <!-- Stats Counter -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="glass rounded-2xl p-6">
+                    <div class="text-4xl font-bold mb-2 neon-text" data-counter="16">0</div>
+                    <div class="text-sm">กิจกรรม Workshop</div>
+                </div>
+                <div class="glass rounded-2xl p-6">
+                    <div class="text-4xl font-bold mb-2 neon-text" data-counter="200">0</div>
+                    <div class="text-sm">ที่นั่งทั้งหมด</div>
+                </div>
+                <div class="glass rounded-2xl p-6">
+                    <div class="text-4xl font-bold mb-2 neon-text" data-counter="10">0</div>
+                    <div class="text-sm">ชั่วโมงกิจกรรม</div>
+                </div>
+                <div class="glass rounded-2xl p-6">
+                    <div class="text-4xl font-bold mb-2 neon-text" data-counter="1">0</div>
+                    <div class="text-sm">วันสุดพิเศษ</div>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
+    
+    <!-- Footer with Social Links -->
     <footer class="py-16 bg-gray-900 text-white relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
             <div class="absolute inset-0 bg-gradient-to-br from-purple-600 to-pink-600"></div>
         </div>
         <div class="container mx-auto px-4 relative z-10">
-            <div class="text-center mb-10">
-                <h3 class="text-3xl font-bold mb-6 neon-purple">สาวบางโพนั้นโก้จริง ๆ</h3>
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold mb-4 holographic">สาวบางโพนั้นโก้จริง ๆ</h3>
                 <p class="text-gray-400 text-xl">แล้วพบกันที่ถนนสายไม้บางโพ นะคะ</p>
             </div>
-            <div class="flex flex-wrap justify-center gap-3 text-sm">
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#BangphoBangpost</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#บางโพบางโพสต์</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#สาวบางโพ</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#ย่านสร้างสรรค์</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#KMUTNB</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#ARCHD_KMUTNB</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#Bangphowoodstreet</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#ถนนสายไม้บางโพ</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#ประชาคมประชานฤมิตร</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#เขตบางซื่อ</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#BKKDW2025</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#BangkokDesignWeek</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#DesignUpRising</span>
-                <span class="px-3 py-1 glass rounded-full hover:bg-purple-600 transition-colors cursor-pointer">#BangphoCreativeCommons</span>
+            
+            <!-- Animated Hashtags -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <span class="hashtag">#BangphoBangpost</span>
+                <span class="hashtag">#บางโพบางโพสต์</span>
+                <span class="hashtag">#สาวบางโพ</span>
+                <span class="hashtag">#ย่านสร้างสรรค์</span>
+                <span class="hashtag">#KMUTNB</span>
+                <span class="hashtag">#ARCHD_KMUTNB</span>
+                <span class="hashtag">#Bangphowoodstreet</span>
+                <span class="hashtag">#ถนนสายไม้บางโพ</span>
+                <span class="hashtag">#ประชาคมประชานฤมิตร</span>
+                <span class="hashtag">#เขตบางซื่อ</span>
+                <span class="hashtag">#BKKDW2025</span>
+                <span class="hashtag">#BangkokDesignWeek</span>
+                <span class="hashtag">#DesignUpRising</span>
+                <span class="hashtag">#BangphoCreativeCommons</span>
+            </div>
+            
+            <style>
+                .hashtag {
+                    padding: 0.5rem 1rem;
+                    background: rgba(139, 92, 246, 0.2);
+                    border: 1px solid rgba(139, 92, 246, 0.5);
+                    border-radius: 999px;
+                    transition: all 0.3s;
+                    cursor: pointer;
+                    display: inline-block;
+                }
+                
+                .hashtag:hover {
+                    background: rgba(139, 92, 246, 0.4);
+                    transform: translateY(-3px);
+                    box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+                }
+            </style>
+            
+            <!-- Back to Top -->
+            <div class="text-center">
+                <button onclick="scrollToTop()" class="inline-flex items-center gap-2 px-6 py-3 rounded-full glass hover:neon-border transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                    </svg>
+                    กลับด้านบน
+                </button>
             </div>
         </div>
     </footer>
-
-    <!-- Particles.js -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     
+    <!-- Scripts -->
     <script>
-        // Dark Mode Toggle
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        const sunIcon = document.getElementById('sunIcon');
-        const moonIcon = document.getElementById('moonIcon');
-        
-        // Check saved preference
-        if (localStorage.getItem('darkMode') === 'true') {
-            body.classList.add('dark');
-        }
-        
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            localStorage.setItem('darkMode', body.classList.contains('dark'));
-        });
-
-        // Particles Configuration
-        particlesJS('particles-js', {
-            particles: {
-                number: {
-                    value: 80,
-                    density: {
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 1500);
+            
+            // Dark Mode
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+            
+            if (localStorage.getItem('darkMode') === 'true') {
+                body.classList.add('dark');
+            }
+            
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark');
+                localStorage.setItem('darkMode', body.classList.contains('dark'));
+            });
+            
+            // Initialize GSAP
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // GSAP Animations
+            gsap.from('.timeline-item', {
+                scrollTrigger: {
+                    trigger: '.timeline-container',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                x: -100,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2
+            });
+            
+            // Typed.js
+            new Typed('#typedText', {
+                strings: [
+                    'Workshop ฟรี 16 กิจกรรม',
+                    'สร้างสรรค์งานไม้',
+                    'เรียนรู้จากผู้เชี่ยวชาญ',
+                    'ประสบการณ์ที่ไม่ควรพลาด'
+                ],
+                typeSpeed: 50,
+                backSpeed: 30,
+                loop: true,
+                showCursor: true,
+                cursorChar: '|'
+            });
+            
+            // Countdown Timer
+            const eventDate = new Date('2025-08-02T08:30:00+07:00').getTime();
+            
+            const updateCountdown = () => {
+                const now = new Date().getTime();
+                const distance = eventDate - now;
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('countdown-seconds').textContent = seconds.toString().padStart(2, '0');
+            };
+            
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+            
+            // Generate Workshop Cards
+            const workshopContainer = document.getElementById('workshopCards');
+            workshops.forEach((workshop, index) => {
+                const card = document.createElement('div');
+                card.className = 'perspective-container';
+                card.innerHTML = `
+                    <div class="perspective-card glass rounded-2xl shadow-xl overflow-hidden h-full cursor-pointer">
+                        <div class="card-face p-8">
+                            <div class="text-5xl mb-6">${workshop.icon}</div>
+                            <h3 class="font-bold text-xl mb-3">${workshop.title}</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">${workshop.company}</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-bold text-purple-600">จำกัด ${workshop.limit} ท่าน</span>
+                                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add hover effect
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card.querySelector('.perspective-card'), {
+                        rotateY: 10,
+                        rotateX: -10,
+                        duration: 0.3
+                    });
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card.querySelector('.perspective-card'), {
+                        rotateY: 0,
+                        rotateX: 0,
+                        duration: 0.3
+                    });
+                });
+                
+                workshopContainer.appendChild(card);
+            });
+            
+            // Counter Animation
+            const counters = document.querySelectorAll('[data-counter]');
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-counter'));
+                        const duration = 2000;
+                        const increment = target / (duration / 16);
+                        let current = 0;
+                        
+                        const updateCounter = () => {
+                            current += increment;
+                            if (current < target) {
+                                counter.textContent = Math.floor(current);
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.textContent = target;
+                            }
+                        };
+                        
+                        updateCounter();
+                        counterObserver.unobserve(counter);
+                    }
+                });
+            });
+            
+            counters.forEach(counter => counterObserver.observe(counter));
+            
+            // Particles.js Configuration
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 100, density: { enable: true, value_area: 800 } },
+                    color: { value: ['#8b5cf6', '#ec4899', '#06b6d4'] },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
                         enable: true,
-                        value_area: 800
+                        distance: 150,
+                        color: '#8b5cf6',
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        out_mode: 'bounce'
                     }
                 },
-                color: {
-                    value: '#8b5cf6'
-                },
-                shape: {
-                    type: 'circle'
-                },
-                opacity: {
-                    value: 0.5,
-                    random: false
-                },
-                size: {
-                    value: 3,
-                    random: true
-                },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: '#8b5cf6',
-                    opacity: 0.4,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 6,
-                    direction: 'none',
-                    random: false,
-                    straight: false,
-                    out_mode: 'out',
-                    bounce: false
-                }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: {
-                        enable: true,
-                        mode: 'repulse'
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'grab' },
+                        onclick: { enable: true, mode: 'push' },
+                        resize: true
                     },
-                    onclick: {
-                        enable: true,
-                        mode: 'push'
-                    },
-                    resize: true
-                },
-                modes: {
-                    repulse: {
-                        distance: 100,
-                        duration: 0.4
-                    },
-                    push: {
-                        particles_nb: 4
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        push: { particles_nb: 4 }
                     }
+                },
+                retina_detect: true
+            });
+            
+            // WebGL Background
+            const webglCanvas = document.getElementById('webgl-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Create animated geometry
+            const geometry = new THREE.IcosahedronGeometry(1, 0);
+            const material = new THREE.MeshNormalMaterial({ wireframe: true });
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+            
+            camera.position.z = 5;
+            
+            function animateWebGL() {
+                requestAnimationFrame(animateWebGL);
+                mesh.rotation.x += 0.001;
+                mesh.rotation.y += 0.002;
+                renderer.render(scene, camera);
+            }
+            animateWebGL();
+            
+            // Matrix Rain Effect
+            const matrixCanvas = document.getElementById('matrix');
+            const ctx = matrixCanvas.getContext('2d');
+            
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+            
+            const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}ก ข ค ง จ ฉ ช ซ ฌ ญ ฎ ฏ ฐ ฑ ฒ ณ";
+            const matrixArray = matrix.split("");
+            const fontSize = 10;
+            const columns = matrixCanvas.width / fontSize;
+            const drops = [];
+            
+            for(let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+            
+            function drawMatrix() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+                
+                ctx.fillStyle = '#8b5cf6';
+                ctx.font = fontSize + 'px monospace';
+                
+                for(let i = 0; i < drops.length; i++) {
+                    const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if(drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
                 }
-            },
-            retina_detect: true
-        });
-
-        // Custom Cursor
-        if (window.innerWidth > 1024) {
-            const cursor = document.querySelector('.cursor');
-            const cursorFollower = document.querySelector('.cursor-follower');
+            }
+            
+            setInterval(drawMatrix, 35);
+            
+            // Mouse Trail Effect
+            const mouseTrailContainer = document.getElementById('mouseTrailContainer');
+            const trailElements = [];
+            const maxTrailElements = 20;
+            
+            for(let i = 0; i < maxTrailElements; i++) {
+                const trail = document.createElement('div');
+                trail.className = 'mouse-trail';
+                trail.style.width = (10 - i * 0.5) + 'px';
+                trail.style.height = (10 - i * 0.5) + 'px';
+                mouseTrailContainer.appendChild(trail);
+                trailElements.push(trail);
+            }
+            
+            let mouseX = 0, mouseY = 0;
+            let trailX = [], trailY = [];
             
             document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+            
+            function animateTrail() {
+                trailX.unshift(mouseX);
+                trailY.unshift(mouseY);
                 
-                setTimeout(() => {
-                    cursorFollower.style.left = e.clientX + 'px';
-                    cursorFollower.style.top = e.clientY + 'px';
-                }, 100);
+                trailX = trailX.slice(0, maxTrailElements);
+                trailY = trailY.slice(0, maxTrailElements);
+                
+                trailElements.forEach((trail, index) => {
+                    if(trailX[index] && trailY[index]) {
+                        trail.style.left = trailX[index] + 'px';
+                        trail.style.top = trailY[index] + 'px';
+                        trail.style.opacity = 1 - (index / maxTrailElements);
+                    }
+                });
+                
+                requestAnimationFrame(animateTrail);
+            }
+            animateTrail();
+            
+            // Floating Elements
+            const floatingContainer = document.getElementById('floating-container');
+            const floatingIcons = ['🌸', '🎨', '🔧', '✨', '💫', '🌟'];
+            
+            setInterval(() => {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.textContent = floatingIcons[Math.floor(Math.random() * floatingIcons.length)];
+                element.style.left = Math.random() * window.innerWidth + 'px';
+                element.style.fontSize = (20 + Math.random() * 20) + 'px';
+                element.style.animationDuration = (10 + Math.random() * 10) + 's';
+                floatingContainer.appendChild(element);
+                
+                setTimeout(() => element.remove(), 20000);
+            }, 2000);
+            
+            // Lottie Animation
+            lottie.loadAnimation({
+                container: document.getElementById('lottie-animation'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: 'https://assets10.lottiefiles.com/packages/lf20_w51pcehl.json'
             });
             
-            document.addEventListener('mousedown', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            // Magnetic Buttons
+            document.querySelectorAll('.magnetic-btn').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0, 0)';
+                });
             });
             
-            document.addEventListener('mouseup', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+            // Ripple Effect on Click
+            document.addEventListener('click', (e) => {
+                const ripple = document.createElement('div');
+                ripple.className = 'ripple';
+                ripple.style.left = e.clientX + 'px';
+                ripple.style.top = e.clientY + 'px';
+                ripple.style.width = '20px';
+                ripple.style.height = '20px';
+                document.body.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
             });
-        }
-
-        // Reveal Animation on Scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+            
+            // Sound Toggle
+            const soundToggle = document.getElementById('soundToggle');
+            let audioContext = null;
+            let oscillator = null;
+            let gainNode = null;
+            let isPlaying = false;
+            
+            soundToggle.addEventListener('click', () => {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                
+                if (isPlaying) {
+                    if (oscillator) {
+                        oscillator.stop();
+                        oscillator = null;
+                    }
+                    isPlaying = false;
+                    soundToggle.classList.remove('neon-border');
+                } else {
+                    // Create ambient sound
+                    oscillator = audioContext.createOscillator();
+                    gainNode = audioContext.createGain();
+                    
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.start();
+                    isPlaying = true;
+                    soundToggle.classList.add('neon-border');
+                    
+                    // Create subtle frequency modulation
+                    setInterval(() => {
+                        if (oscillator && isPlaying) {
+                            const freq = 440 + Math.sin(Date.now() * 0.001) * 20;
+                            oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+                        }
+                    }, 100);
                 }
             });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
+            window.addEventListener('resize', () => {
+                // Update WebGL
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                
+                // Update Matrix
+                matrixCanvas.width = window.innerWidth;
+                matrixCanvas.height = window.innerHeight;
+            });
+            
+            // Intersection Observer for Animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(50px)';
+                section.style.transition = 'all 0.8s ease-out';
+                observer.observe(section);
+            });
+            
+            // Service Worker Registration (PWA)
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('data:text/javascript,self.addEventListener("install",e=>e.waitUntil(caches.open("v1").then(t=>t.addAll(["/"]))));self.addEventListener("fetch",e=>e.respondWith(caches.match(e.request).then(t=>t||fetch(e.request))));');
+            }
+            
+            // Image Loading with Fallback
+            const eventImage = document.getElementById('eventImage');
+            eventImage.addEventListener('error', function() {
+                console.log('Image loading failed, using fallback');
+            });
+            
+            // Preload critical resources
+            const preloadLink = document.createElement('link');
+            preloadLink.rel = 'preload';
+            preloadLink.as = 'image';
+            preloadLink.href = 'https://lh5.googleusercontent.com/d/1ujJbR26jN-12VqXx6LMIB5LeXcnfCUkC';
+            document.head.appendChild(preloadLink);
         });
-
-        // Tilt Effect on Cards
-        const tiltElements = document.querySelectorAll('.tilt');
         
-        tiltElements.forEach(element => {
-            element.addEventListener('mousemove', (e) => {
-                const rect = element.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                
-                element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-            });
-        });
-
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        // Utility Functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function shareEvent() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Bangpho Bangpost - Workshop ฟรี 16 กิจกรรม',
+                    text: 'มาร่วมสร้างสรรค์งานไม้กับเรา วันเสาร์ที่ 2 สิงหาคม 2568',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback to copy link
+                navigator.clipboard.writeText(window.location.href);
+                alert('คัดลอกลิงก์แล้ว!');
+            }
+        }
+        
+        // Performance monitoring
+        if ('PerformanceObserver' in window) {
+            const perfObserver = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    console.log('Performance:', entry.name, entry.duration);
                 }
             });
-        });
-
-        // Parallax Effect
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.gradient-bg');
-            
-            parallaxElements.forEach(element => {
-                const speed = element.dataset.speed || 0.5;
-                element.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-        });
-
-        // Add animation delays to blob elements
-        const style = document.createElement('style');
-        style.textContent = `
-            .animation-delay-2000 { animation-delay: 2s; }
-            .animation-delay-4000 { animation-delay: 4s; }
-        `;
-        document.head.appendChild(style);
+            perfObserver.observe({ entryTypes: ['measure', 'navigation'] });
+        }
     </script>
 </body>
 </html>
